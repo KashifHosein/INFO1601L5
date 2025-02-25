@@ -1,5 +1,132 @@
-let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];// 10 elements
-
-for(let i=0; i< arr.length; i++){
-  console.log(arr[i])
+function callbFunc(string){
+    console.log("WOW "+string);
 }
+
+function printDate(){
+    console.log(new Date().toLocaleTimeString());
+ }
+
+function sum(a=1, b=1, callback){
+    sum = a + b;
+    callback(sum);
+}
+
+sum(10, 10, callbFunc);
+setInterval(printDate, 1000);
+
+//Create a constructor a functions which builds object for us
+function createPerson(name, height, weight) {
+    return { "name": name, "height": height, "weight": weight };
+  }
+  
+  function calcBMI(weight, height) {
+    return weight / (height * height);
+  }
+  
+  function avgBMI(people) {
+    let sum = 0;
+    for (let person of people) {
+      //sum the bmi of each person
+      sum += calcBMI(person.weight, person.height);
+    }
+    //calculate average
+    return sum / people.length;
+  }
+  
+  //create a collection of people
+  let people = [
+    createPerson("Sally", 60, 2.5),
+    createPerson("Ben", 81, 3),
+    createPerson("Shelly", 50, 1.7)
+  ];
+  
+  console.log(avgBMI(people));
+
+  //object literal
+let bob = {
+    fname: "bob",
+    lname: "smith",
+    age: 18,
+    height: 6,
+    transcript:[
+      {
+        course: 'INFO 1603',
+        grades: [ 89, 34, 67 ]
+      },
+      {
+        course: 'INFO 1601',
+        grades: [ 89, 34, 67 ]
+      }
+    ]
+  };
+  
+  let sally = {
+    fname: "sally",
+    lname: "smith",
+    age: 18,
+    height: 6,
+    transcript:[
+      {
+        course: 'INFO 1601',
+        grades: [ 100, 89, 79 ]
+      }
+    ]
+  };
+  
+  let paul = {
+    fname: "paul",
+    lname: "smith",
+    age: 18,
+    height: 6,
+    transcript:[
+      {
+        course: 'INFO 1600',
+        grades: [ 89, 34, 67 ]
+      }
+    ]
+  };
+  
+  
+  const students = [bob, sally, paul];
+
+  function getAverageGrade(student, course){
+    for(let trans of student.transcript){
+        if(trans.course === course){
+            let sum = 0;
+            for(let grade of trans.grades){
+                sum+=grade;
+            }
+            return sum / trans.grades.length;
+        }
+    }
+    return -1;
+  }
+
+  function getAssignmentMark(student, course, num){
+    for(let t of student.transcript){
+        if(t.course === course){
+          if(num > 0 && num <= t.grades.length){
+            return t.grades[num - 1];
+          }
+          return -1;
+        }
+    }
+    return -1;
+  }
+
+  function averageAssessment(students, courseName, assignment){
+    let sum = 0;
+    let count = 0;
+    for(let i = 0; i < students.length; i++){
+      const student = students[i];  
+      for(let j = 0; j < student.transcript.length; j++){
+        let t = student.transcript[j];
+        if(course === t.course){
+            count++;
+            sum = sum + t.grades[assignment - 1];
+        }
+      }
+    }
+    let average = sum/count;
+    return average;
+  }
